@@ -3,24 +3,27 @@ import { addTask, removeTask, completeTask } from "./store/task";
 import { addEmployee } from "./store/employee";
 import axios from "axios";
 import { getTasks } from "./store/task";
+import { fetchTasks } from "./store/task";
 
 const unsubsribe = store.subscribe(() => {
   console.log("Update", store.getState());
 });
 
-const gettingTasks = async () => {
-  // calling api
+store.dispatch(fetchTasks());
 
-  try {
-    const response = await axios.get("http://localhost:5000/api/tasks");
-    console.log(response);
-    store.dispatch(getTasks({ task: response.data }));
-  } catch (error) {
-    store.dispatch({ type: "SHOW_ERROR", payload: { error: error.message } });
-  }
-};
+// const gettingTasks = async () => {
+//   // calling api
 
-gettingTasks();
+//   try {
+//     const response = await axios.get("http://localhost:5000/api/tasks");
+//     console.log(response);
+//     store.dispatch(getTasks({ task: response.data }));
+//   } catch (error) {
+//     store.dispatch({ type: "SHOW_ERROR", payload: { error: error.message } });
+//   }
+// };
+
+// gettingTasks();
 
 //store.dispatch(addTask({ task: "Task1" }));
 // store.dispatch(addTask({ task: "Task2" }));
