@@ -15,4 +15,6 @@ const unsubsribe = store.subscribe(() => {
 // store.dispatch(removeTask({ id: 1 }));
 // // store.dispatch(fetchTodo());
 // console.log(store.getState());
-store.dispatch(addEmployee({ name: "Harley" }));
+// store.dispatch(addEmployee({ name: "Harley" }));
+
+store.dispatch({ type: "SHOW_ERROR", payload: { error: "user not found" } });
