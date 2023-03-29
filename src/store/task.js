@@ -1,9 +1,36 @@
-import { createAction, createReducer } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+let id = 0;
+const taskSlice = createSlice({
+  name: "tasks",
+  initialState: [],
+  reducers: {
+    // action : function
+    addTask: (state, action) => {
+      state.push({
+        id: ++id,
+        task: action.payload.task,
+        complete: false,
+      });
+    },
+    removeTask: (state, action) => {
+      const index = state.findIndex((task) => task.id === action.payload.id);
+      state.splice(index, 1);
+    },
+    completeTask: (state, action) => {
+      const index = state.findIndex((task) => task.id === action.payload.id);
+      state[index].complete = true;
+    },
+  },
+});
+
+export const { addTask, removeTask, completeTask } = taskSlice.actions;
+export default taskSlice.reducer;
+console.log(taskSlice);
 
 // Actions
-export const addTask = createAction("ADD_TASK");
-export const removeTask = createAction("REMOVE_TASK");
-export const completeTask = createAction("COMPLETE_TASK");
+// export const addTask = createAction("ADD_TASK");
+// export const removeTask = createAction("REMOVE_TASK");
+// export const completeTask = createAction("COMPLETE_TASK");
 
 // export const fetchTodo = () => {
 //   return async function (dispatch, getState) {
@@ -17,24 +44,23 @@ export const completeTask = createAction("COMPLETE_TASK");
 
 // Reducer
 
-let id = 0;
-export default createReducer([], {
-  [addTask.type]: (state, action) => {
-    state.push({
-      id: ++id,
-      task: action.payload.task,
-      complete: false,
-    });
-  },
-  [removeTask.type]: (state, action) => {
-    const index = state.findIndex((task) => task.id === action.payload.id);
-    state.splice(index, 1);
-  },
-  [completeTask.type]: (state, action) => {
-    const index = state.findIndex((task) => task.id === action.payload.id);
-    state[index].complete = true;
-  },
-});
+// export default createReducer([], {
+//   [addTask.type]: (state, action) => {
+//     state.push({
+//       id: ++id,
+//       task: action.payload.task,
+//       complete: false,
+//     });
+//   },
+//   [removeTask.type]: (state, action) => {
+//     const index = state.findIndex((task) => task.id === action.payload.id);
+//     state.splice(index, 1);
+//   },
+//   [completeTask.type]: (state, action) => {
+//     const index = state.findIndex((task) => task.id === action.payload.id);
+//     state[index].complete = true;
+//   },
+// });
 
 // export default function reducer(state = [], action) {
 //   switch (action.type) {
